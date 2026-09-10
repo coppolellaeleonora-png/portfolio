@@ -3,7 +3,7 @@
 // Nome del repository GitHub: determina il sotto-path su cui viene servito
 // il sito con GitHub Pages (https://<username>.github.io/<REPO_NAME>/).
 // Cambia SOLO questa costante se in futuro rinomini il repository.
-const REPO_NAME = 'ele-portfolio';
+const REPO_NAME = 'portfolio';
 
 // In sviluppo locale (next dev) niente basePath, così l'app resta su "/".
 // In build di produzione (next build / export) applichiamo il sotto-path.

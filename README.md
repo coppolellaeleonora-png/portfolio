@@ -51,22 +51,20 @@ in **una sola costante**:
 
 ```js
 // next.config.js
-const REPO_NAME = 'ele-portfolio';
+const REPO_NAME = 'portfolio';
 ```
 
-**Il progetto è attualmente configurato per essere testato sul profilo GitHub
-di Tomas** (`iltommi1995`), come da accordo iniziale — vedi `site.url` in
+**Il progetto è pubblicato sul repository di Eleonora**
+(`coppolellaeleonora-png/portfolio`) — vedi `site.url` in
 [`lib/content.ts`](lib/content.ts) che punta a
-`https://iltommi1995.github.io/ele-portfolio/`.
+`https://coppolellaeleonora-png.github.io/portfolio/`.
 
-**Quando si è pronti a pubblicare sul profilo di Eleonora**, occorre:
+Se in futuro il repository cambia nome o account, occorre aggiornare:
 
-1. Se cambia anche il **nome del repository**, aggiornare `REPO_NAME` in
-   `next.config.js`.
-2. Aggiornare `site.url` in `lib/content.ts` con lo username/dominio definitivo
+1. `REPO_NAME` in `next.config.js`, se cambia il **nome del repository**.
+2. `site.url` in `lib/content.ts` con lo username/dominio definitivo
    (usato per i meta tag Open Graph/Twitter e per i link assoluti).
-3. Se il repository verrà trasferito/ricreato sotto l'account di Eleonora,
-   verificare che **Settings → Pages → Source** sia impostato su *GitHub
+3. Verificare che **Settings → Pages → Source** sia impostato su *GitHub
    Actions* anche nel nuovo repository.
 
 Nessun'altra modifica è necessaria: tutte le immagini e i link interni usano

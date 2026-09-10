@@ -8,7 +8,7 @@ export const site = {
   role: 'Biologa Marina e Scientific Storyteller / Content Creator',
   description:
     'Biologa marina specializzata in bioacustica con base a Milano. Trasformo concetti scientifici complessi in storie visive e dal vivo capaci di ingaggiare il pubblico di massa.',
-  url: 'https://iltommi1995.github.io/ele-portfolio/',
+  url: 'https://coppolellaeleonora-png.github.io/portfolio/',
   ogImage: '/images/hero/eleonora-hero.webp',
 };
 
