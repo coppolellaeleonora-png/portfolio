@@ -1,74 +1,57 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { withBasePath } from '@/lib/utils';
-
-declare global {
-  interface Window {
-    instgrm?: { Embeds: { process: () => void } };
-  }
-}
 
 type VideoEmbedProps = {
   poster: string;
   posterAlt: string;
   title: string;
-  // Altezza fissa del poster (prima del click), per evitare che screenshot
-  // verticali molto alti dominino il layout della card.
+  // Altezza fissa del poster (prima del click) per il variant "wide" (es. il
+  // documentario), per evitare che uno screenshot molto alto domini la card.
   mediaHeightClassName?: string;
+  // "reel" mostra il contenuto nel suo formato verticale nativo (da
+  // telefono), centrato e non stirato — pensato per i Reel Instagram, che
+  // altrimenti verrebbero forzati in un riquadro largo e tagliati male.
+  // "wide" (default) mantiene il comportamento precedente.
+  variant?: 'reel' | 'wide';
 } & (
   | { kind: 'instagram'; permalink: string }
   | { kind: 'vimeo'; embedUrl: string }
 );
 
-// Componente "già predisposto" per un embed reale: mostra sempre lo
-// screenshot come poster con badge di riproduzione, e al click carica
-// l'embed effettivo (Instagram embed.js oppure iframe Vimeo). Per
-// sostituire la fonte in futuro basta cambiare permalink/embedUrl in
-// lib/content.ts — nessun layout da rifare.
+// Ricava l'URL della pagina embed dedicata di Instagram da un permalink
+// (es. https://www.instagram.com/reel/ABC123/ -> .../reel/ABC123/embed/captioned/).
+// Renderizzata in un <iframe> vero (non il widget blockquote + embed.js, che
+// si è dimostrato inaffidabile con più Reel sulla stessa pagina). L'iframe
+// nativo di Instagram ha però una veste grafica bianca che stona con il tema
+// scuro del sito: per questo resta nascosto dietro la copertina (screenshot
+// reale + play button) finché non viene cliccato, invece di caricarsi da solo.
+function toEmbedUrl(permalink: string): string {
+  const trimmed = permalink.replace(/\/?$/, '/');
+  return `${trimmed}embed/captioned/`;
+}
+
 export default function VideoEmbed(props: VideoEmbedProps) {
   const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!loaded || props.kind !== 'instagram') return;
-
-    const existingScript = document.getElementById('instagram-embed-script');
-    if (existingScript) {
-      window.instgrm?.Embeds.process();
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.id = 'instagram-embed-script';
-    script.src = 'https://www.instagram.com/embed.js';
-    script.async = true;
-    script.onload = () => window.instgrm?.Embeds.process();
-    document.body.appendChild(script);
-  }, [loaded, props.kind]);
+  const isReel = props.variant === 'reel';
 
   if (loaded) {
-    if (props.kind === 'instagram') {
-      return (
-        <div className="w-full overflow-hidden rounded-2xl bg-black/5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <blockquote
-            className="instagram-media"
-            data-instgrm-permalink={props.permalink}
-            data-instgrm-version="14"
-            style={{ margin: 0, width: '100%' }}
-          />
-        </div>
-      );
-    }
-
+    const embedUrl = props.kind === 'instagram' ? toEmbedUrl(props.permalink) : props.embedUrl;
     return (
-      <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black">
+      <div
+        className={`overflow-hidden rounded-2xl border border-glass-border bg-glass ${
+          isReel
+            ? 'mx-auto aspect-[3/5] w-full max-w-[320px] sm:max-w-[360px]'
+            : 'aspect-video w-full bg-black'
+        }`}
+      >
         <iframe
-          src={props.embedUrl}
+          src={embedUrl}
           title={props.title}
           className="h-full w-full"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen={props.kind === 'vimeo'}
         />
       </div>
     );
@@ -78,23 +61,29 @@ export default function VideoEmbed(props: VideoEmbedProps) {
     <button
       type="button"
       onClick={() => setLoaded(true)}
-      className="group relative block w-full overflow-hidden rounded-2xl focus-visible:outline-offset-4"
+      className={`group relative block overflow-hidden rounded-2xl border border-glass-border focus-visible:outline-offset-4 ${
+        isReel ? 'mx-auto w-full max-w-[320px] sm:max-w-[360px]' : 'w-full'
+      }`}
       aria-label={`Riproduci: ${props.title}`}
     >
       <img
         src={withBasePath(props.poster)}
         alt={props.posterAlt}
         loading="lazy"
-        className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
-          props.mediaHeightClassName ?? 'aspect-[4/5]'
+        className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+          isReel ? 'aspect-[3/5]' : (props.mediaHeightClassName ?? 'aspect-[4/5]')
         }`}
       />
-      <span className="absolute inset-0 flex items-center justify-center bg-ink/25 transition-colors group-hover:bg-ink/40">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-cream/95 text-2xl text-abyss shadow-lg">
-          ▶
+      <span className="absolute inset-0 bg-gradient-to-t from-abyss-950/85 via-abyss-950/10 to-transparent transition-opacity group-hover:from-abyss-950/70" />
+      <span className="absolute inset-0 flex items-center justify-center">
+        <span className="relative flex h-16 w-16 items-center justify-center">
+          <span className="absolute inset-0 animate-pulse-ring rounded-full bg-cyan/40" />
+          <span className="relative flex h-14 w-14 items-center justify-center rounded-full border border-cyan/50 bg-gradient-to-br from-abyss-800/90 to-abyss-900/90 text-xl text-cyan-soft backdrop-blur-sm transition-transform group-hover:scale-110">
+            ▶
+          </span>
         </span>
       </span>
-      <span className="absolute bottom-3 left-3 rounded-full bg-cream/95 px-3 py-1 text-xs font-semibold text-ink">
+      <span className="absolute bottom-3 left-3 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-[11px] text-cyan-soft backdrop-blur-sm">
         {props.kind === 'instagram' ? 'Guarda il Reel su Instagram' : 'Guarda il video'}
       </span>
     </button>

@@ -5,7 +5,7 @@
 
 export const site = {
   name: 'Eleonora Coppolella',
-  role: 'Biologa Marina & Scientific Storyteller / Content Creator',
+  role: 'Biologa Marina e Scientific Storyteller / Content Creator',
   description:
     'Biologa marina specializzata in bioacustica con base a Milano. Trasformo concetti scientifici complessi in storie visive e dal vivo capaci di ingaggiare il pubblico di massa.',
   url: 'https://iltommi1995.github.io/ele-portfolio/',
@@ -14,9 +14,9 @@ export const site = {
 
 export const nav = [
   { id: 'intro', label: 'Intro' },
-  { id: 'scripting', label: 'Storytelling & Video' },
-  { id: 'media', label: 'Audio & Media' },
-  { id: 'live', label: 'Live & Scuole' },
+  { id: 'scripting', label: 'Storytelling' },
+  { id: 'media', label: 'Audio e media' },
+  { id: 'live', label: 'Live e scuole' },
   { id: 'contatti', label: 'Contatti' },
 ];
 
@@ -24,14 +24,12 @@ export const nav = [
 export const hero = {
   name: site.name,
   role: site.role,
-  bio: 'Biologa marina specializzata in bioacustica con base a Milano. Trasformo concetti scientifici complessi — dai canti dei cetacei alle dinamiche marine — in storie visive e dal vivo capaci di ingaggiare il pubblico di massa. Scrivo script per reel, curo la comunicazione social di un podcast di divulgazione marina e porto la bioacustica nelle scuole.',
+  bio: 'Biologa marina specializzata in bioacustica con base a Milano. Trasformo concetti scientifici complessi — dai canti dei cetacei alle dinamiche marine — in storie visive e dal vivo capaci di ingaggiare il pubblico di massa. Curo la comunicazione social dell\'associazione di divulgazione scientifica "Baila Murena", co-ideo concept e scalette per i Reel e porto la bioacustica nelle scuole.',
   photo: '/images/hero/eleonora-hero.webp',
-  // Nessuno scatto in data/ è un vero ritratto singolo: questa è una foto di
-  // una lezione (scuola primaria, laboratorio sul plancton) ritagliata per
-  // escludere un collega presente sullo sfondo. Da sostituire con un
-  // ritratto dedicato quando disponibile.
+  // Fotogramma dal documentario TursioNet (vedi sezione Audio & Media), in
+  // cui parla come analista dati bioacustici.
   photoAlt:
-    'Eleonora Coppolella sorride durante una lezione di biologia marina sul plancton in una scuola primaria',
+    'Eleonora Coppolella parla come analista di dati bioacustici durante un\'intervista per il documentario TursioNet',
 };
 
 // --- Sezione 2: Scripting & Video Storytelling ----------------------------
@@ -40,12 +38,15 @@ export const hero = {
 //        02_Divulgazione_Scuole_e_Live/00_Schede_Progetti_Didattici.docx
 export type ScriptingProject = {
   id: string;
-  badge: string;
+  // Etichetta di attribuzione mostrata sotto il titolo (es. "Per Baila
+  // Murena"): rende evidente per quale progetto/associazione è stato
+  // realizzato, senza il generico badge "Progetto reale" di prima.
+  attribution: string;
   title: string;
   role: string;
   media:
     | { kind: 'instagram'; permalink: string; poster: string; posterAlt: string }
-    | { kind: 'image'; src: string; alt: string };
+    | { kind: 'image'; src: string; alt: string; aspectClassName?: string };
   ctaLabel: string; // testo del bottone di espansione (es. "Dietro le quinte")
   behindTheScenes: string[]; // paragrafi mostrati una volta espanso
 };
@@ -53,19 +54,19 @@ export type ScriptingProject = {
 export const scriptingProjects: ScriptingProject[] = [
   {
     id: 'reel-museo',
-    badge: 'Progetto reale',
+    attribution: 'Per "Baila Murena"',
     title: 'Storytelling visivo per la mostra "Oceani Perduti"',
     role: 'Ruolo: co-ideazione del concept, co-regia di campo, selezione video e brief di montaggio — in collaborazione con Kosmos, Museo di Storia Naturale dell\'Università di Pavia.',
     media: {
       kind: 'instagram',
-      permalink: 'https://www.instagram.com/reel/DaSiQJFMPqY/',
+      permalink: 'https://www.instagram.com/reel/DZuksc4svW_/',
       poster: '/images/projects/reel-museo-poster.webp',
       posterAlt:
         'Fotogramma del Reel Instagram girato al Museo Kosmos di Pavia per la mostra Oceani Perduti, con il ricercatore Riccardo davanti alla ricostruzione di un plesiosauro',
     },
     ctaLabel: 'Dietro le quinte',
     behindTheScenes: [
-      'Format: divulgativo / ironico. Il Reel nasce per pubblicizzare la mostra "Oceani Perduti" ed è pubblicato sull\'account Instagram del podcast Baila Murena, con cui collaboro.',
+      'Format: divulgativo / ironico. Il Reel nasce per pubblicizzare la mostra "Oceani Perduti" ed è pubblicato sull\'account Instagram di "Baila Murena", il progetto di divulgazione scientifica di cui faccio parte.',
       '00:00–00:03 Hook — mezzobusto su Eleonora, seduta, che chiede a Fabio "Fabione, ma cosa stai facendo?".',
       '00:03–00:12 Gag di apertura — panoramica su Fabio, confuso e spaesato, che finge di non sapere dove si trovi mentre l\'inquadratura porta l\'attenzione sulla ricostruzione del plesiosauro: l\'obiettivo narrativo è creare curiosità con un tono leggero.',
       '00:13–00:26 Spiegazione e call to action — Riccardo interviene, identifica il plesiosauro e sposta lo sguardo dalla scena alla camera per rompere la quarta parete e invitare i follower a visitare la mostra.',
@@ -75,12 +76,12 @@ export const scriptingProjects: ScriptingProject[] = [
   },
   {
     id: 'reel-cetacei',
-    badge: 'Progetto reale',
+    attribution: 'Per "Baila Murena"',
     title: 'Un giorno di avvistamento cetacei nel Santuario Pelagos',
     role: 'Ruolo: co-ideazione del concept, co-regia di campo, selezione video e brief di montaggio — in collaborazione con Golfo Paradiso Whale Watching.',
     media: {
       kind: 'instagram',
-      permalink: 'https://www.instagram.com/reel/DZuksc4svW_/',
+      permalink: 'https://www.instagram.com/reel/DaSiQJFMPqY/',
       poster: '/images/projects/reel-cetacei-poster.webp',
       posterAlt:
         'Fotogramma del Reel Instagram a bordo dell\'imbarcazione di Golfo Paradiso Whale Watching, durante il racconto di un avvistamento di zifi',
@@ -96,13 +97,14 @@ export const scriptingProjects: ScriptingProject[] = [
   },
   {
     id: 'rubrica-tartamare',
-    badge: 'Progetto reale',
+    attribution: 'Per TartAmare',
     title: 'Rubrica di bioacustica "Il linguaggio del mare"',
     role: 'Ruolo: curatela dei testi scientifici e adattamento del linguaggio per Instagram, per l\'associazione TartAmare. Veste grafica a cura del social media manager dell\'associazione.',
     media: {
       kind: 'image',
       src: '/images/projects/rubrica-slide-1.webp',
       alt: 'Prima slide del carosello Instagram "Il linguaggio del mare", con spettrogramma e delfini in superficie',
+      aspectClassName: 'aspect-square',
     },
     ctaLabel: 'Leggi lo script completo',
     behindTheScenes: [
@@ -115,9 +117,9 @@ export const scriptingProjects: ScriptingProject[] = [
   },
   {
     id: 'lezione-cetacei-scuola',
-    badge: 'Progetto reale',
+    attribution: 'Con "Baila Murena"',
     title: 'I suoni del mare: bioacustica in classe',
-    role: 'Ruolo: insieme al team di Baila Murena, stesura della scaletta, adattamento del linguaggio scientifico e conduzione in aula, con un focus personale su cetacei e comunicazione acustica marina.',
+    role: 'Ruolo: insieme al team di "Baila Murena", stesura della scaletta, adattamento del linguaggio scientifico e conduzione in aula, con un focus personale su cetacei e comunicazione acustica marina.',
     media: {
       kind: 'image',
       src: '/images/projects/lezione-cetacei-scuola.webp',
@@ -188,12 +190,14 @@ export const socialContentSamples = [
 export const documentary = {
   title: 'TursioNet — mitigare il conflitto fra delfini e pescatori',
   role: 'Ruolo: analista dati bioacustici, per NAUTA scientific srl.',
-  vimeoEmbedUrl: 'https://player.vimeo.com/video/1144840417?h=1ea4452de9',
+  // #t=4m9s fa partire la riproduzione già al minuto del suo intervento
+  // (senza tagliare il video: si può comunque riavvolgere fino all'inizio).
+  vimeoEmbedUrl: 'https://player.vimeo.com/video/1144840417?h=1ea4452de9#t=4m9s',
   cover: '/images/media/documentario-cover.webp',
   coverAlt:
     'Fotogramma del documentario TursioNet con Eleonora Coppolella, analista dati bioacustici per NAUTA scientific srl, in laboratorio',
   caption:
-    'Intervento come esperta di bioacustica marina all\'interno del documentario "TursioNet — mitigare il conflitto fra delfini e pescatori", progetto di monitoraggio acustico del tursiope legato alla rete TursioNet (min. 04:08–05:34).',
+    'Intervento come esperta di bioacustica marina all\'interno del documentario "TursioNet — mitigare il conflitto fra delfini e pescatori", progetto di monitoraggio acustico del tursiope legato alla rete TursioNet (min. 04:09–05:35).',
   description:
     'Elaborazione e analisi dei dati audio dai sistemi di registrazione acustica del progetto TursioNet per il tracciamento e lo studio del comportamento del tursiope, con spiegazione dei risultati resa accessibile al pubblico generalista.',
 };
@@ -210,11 +214,11 @@ export const livePhotos = [
 export const methodology = {
   intro: 'Portare la biologia marina nelle scuole',
   fixedText:
-    'Insieme al team di Baila Murena porto la bioacustica marina nelle scuole e negli eventi dal vivo, adattando linguaggio e attività pratiche all\'età del pubblico.',
+    'Insieme al team di "Baila Murena" porto la bioacustica marina nelle scuole e negli eventi dal vivo, adattando linguaggio e attività pratiche all\'età del pubblico.',
   expandTitle: 'Scopri il metodo usato a scuola',
   formats: [
     {
-      name: 'Baila Murena at school — Scuole primarie',
+      name: '"Baila Murena at school" — Scuole primarie',
       objective: 'Far conoscere la biologia marina, spiegandone le basi.',
       role: 'Insieme ad altri membri del team, mi occupo della stesura della scaletta, della preparazione della presentazione, dell\'organizzazione delle attività pratiche, dell\'adattamento del linguaggio scientifico per gli alunni e della conduzione dell\'evento dal vivo, focalizzandomi sulle conoscenze e attività bioacustiche.',
       steps: [
@@ -226,7 +230,7 @@ export const methodology = {
       ],
     },
     {
-      name: 'Baila Murena at school — Scuole secondarie di primo grado',
+      name: '"Baila Murena at school" — Scuole secondarie di primo grado',
       objective: 'Far conoscere la biologia marina attraverso i concetti di ecosistemi e biodiversità.',
       role: 'Stesso ruolo trasversale del format per le primarie, con contenuti e linguaggio adattati a un pubblico più grande.',
       steps: [
@@ -237,11 +241,6 @@ export const methodology = {
       ],
     },
   ],
-  // Nessuna slide/PDF didattico scaricabile presente in data/: il contenuto
-  // testuale reale delle schede è integrato sopra; sostituisci questa nota
-  // quando sarà disponibile un file scaricabile.
-  materialPlaceholder:
-    '[CONTENUTO DA COMPLETARE — Eleonora: PDF o slide della scheda didattica da rendere scaricabile]',
 };
 
 // --- Footer / Contatti ------------------------------------------------------

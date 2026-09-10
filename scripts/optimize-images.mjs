@@ -19,16 +19,15 @@ const OUT = path.join(ROOT, 'public', 'images');
 //   da una foto altrimenti utile, quando non esiste uno scatto già pulito. }
 const MANIFEST = [
   // --- Hero ---
-  // Nessuno scatto disponibile in data/ è un vero ritratto "solo lei": questo
-  // crop nasce dalla foto della lezione di scuola primaria sul plancton,
-  // tagliata per escludere il collega seduto sulla destra. Da sostituire con
-  // un ritratto dedicato quando disponibile.
+  // Fotogramma del documentario TursioNet: la si vede parlare, in un unico
+  // scatto pulito. Il crop rimuove la fascia inferiore con nome/logo e le
+  // icone di controllo del player, sovrimpresse nello screenshot originale.
   {
-    src: '02_Divulgazione_Scuole_e_Live/04_lezione_scuola_primaria.jpg',
+    src: '03_Esperienze_Editoriali_e_Media/03_01_Screen_Documentario.jpg',
     out: 'hero/eleonora-hero',
-    crop: { left: 0, top: 0, width: 2100, height: 3650 },
-    width: 1200,
-    quality: 82,
+    crop: { left: 0, top: 100, width: 1909, height: 740 },
+    width: 1800,
+    quality: 90,
   },
 
   // --- Sezione 2: Scripting & Video Storytelling ---

@@ -7,7 +7,7 @@ import ExpandableCard from './ExpandableCard';
 
 export default function LiveSection() {
   return (
-    <section id="live" className="scroll-mt-24 px-4 py-16 sm:px-8">
+    <section id="live" className="scroll-mt-28 px-4 py-24 sm:px-8">
       <div className="mx-auto max-w-content">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -15,24 +15,27 @@ export default function LiveSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-display text-4xl italic text-ink sm:text-5xl">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-soft">
+            03 — Live e scuole
+          </p>
+          <h2 className="mt-3 font-display font-medium text-4xl italic text-ink sm:text-5xl">
             Divulgazione dal vivo e nelle scuole
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/90 sm:text-lg">
-            Laboratori, lezioni e festival dal vivo, dove la bioacustica marina incontra
-            bambini, ragazzi e pubblico generalista.
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-dim sm:text-lg">
+            Laboratori, lezioni e festival dal vivo, dove la biologia marina incontra bambini,
+            ragazzi e pubblico generalista.
           </p>
         </motion.div>
 
-        <div className="mt-10">
+        <div className="mt-12">
           <PhotoGrid photos={livePhotos} />
         </div>
 
-        <div className="mt-16 rounded-3xl bg-cream/40 p-6 sm:p-8">
-          <h3 className="font-display text-2xl italic text-ink sm:text-3xl">
+        <div className="mt-16 rounded-3xl border border-glass-border bg-gradient-to-br from-glass to-white/[0.02] p-6 backdrop-blur-sm sm:p-8">
+          <h3 className="font-display font-medium text-2xl italic text-ink sm:text-3xl">
             {methodology.intro}
           </h3>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/90 sm:text-base">
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-dim sm:text-base">
             {methodology.fixedText}
           </p>
 
@@ -44,21 +47,18 @@ export default function LiveSection() {
             <div className="space-y-8">
               {methodology.formats.map((format) => (
                 <div key={format.name}>
-                  <h5 className="font-display text-lg italic text-ink">{format.name}</h5>
-                  <p className="mt-1 text-sm font-medium text-abyss">
+                  <h5 className="font-display font-medium text-lg italic text-ink">{format.name}</h5>
+                  <p className="mt-1 font-mono text-xs text-cyan-soft">
                     Obiettivo: {format.objective}
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/90">{format.role}</p>
-                  <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-ink/90">
+                  <p className="mt-2 text-sm leading-relaxed text-ink-dim">{format.role}</p>
+                  <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-ink-dim marker:text-cyan/60">
                     {format.steps.map((step, i) => (
                       <li key={i}>{step}</li>
                     ))}
                   </ol>
                 </div>
               ))}
-              <p className="rounded-xl border-2 border-dashed border-ink/30 bg-cream/40 p-4 text-sm font-medium text-ink/70">
-                {methodology.materialPlaceholder}
-              </p>
             </div>
           </ExpandableCard>
         </div>

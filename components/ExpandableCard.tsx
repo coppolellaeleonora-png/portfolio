@@ -28,7 +28,11 @@ export default function ExpandableCard({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={contentId}
-        className="inline-flex items-center gap-2 rounded-full bg-abyss px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-abyss-light focus-visible:outline-cream"
+        className={`group inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all ${
+          open
+            ? 'border-cyan/50 bg-gradient-to-r from-cyan/15 to-cyan-deep/10 text-cyan-soft'
+            : 'border-glass-border bg-gradient-to-br from-glass to-white/[0.02] text-ink hover:border-cyan/40 hover:from-glass-hover hover:text-cyan-soft'
+        }`}
       >
         <span>{open ? expandedLabel : collapsedLabel}</span>
         <motion.span
@@ -53,9 +57,9 @@ export default function ExpandableCard({
           >
             <div className="pt-5">
               {title && (
-                <h4 className="mb-2 font-display text-lg italic text-ink">{title}</h4>
+                <h4 className="mb-2 font-display font-medium text-lg italic text-ink">{title}</h4>
               )}
-              <div className="space-y-3 text-sm leading-relaxed text-ink/90 sm:text-base">
+              <div className="space-y-3 text-sm leading-relaxed text-ink-dim sm:text-base">
                 {children}
               </div>
             </div>

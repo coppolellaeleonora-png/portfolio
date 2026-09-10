@@ -7,16 +7,46 @@ html {
 }
 
 body {
-  background-color: #A9C0F2;
-  color: #48443E;
+  background-color: #0f314c;
+  color: #eaf2ff;
+}
+
+::selection {
+  background-color: rgba(79, 217, 232, 0.3);
+  color: #eaf2ff;
 }
 
 /* Focus visibile e coerente su tutti gli elementi interattivi, per la
    navigazione da tastiera richiesta a livello di accessibilità. */
 :focus-visible {
-  outline: 3px solid #1C3D5A;
+  outline: 2px solid #4fd9e8;
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* Scrollbar sottile e scura, coerente col tema */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0f314c;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b71a0;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a84b5;
+}
+
+/* Nasconde la scrollbar di un contenitore a scroll orizzontale (usata dalla
+   nav su mobile) mantenendo lo scroll/swipe utilizzabile. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

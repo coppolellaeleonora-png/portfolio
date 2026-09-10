@@ -10,12 +10,12 @@ export default function PodcastEmbed({ episode }: { episode: PodcastEpisode }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.5 }}
-      className="rounded-3xl bg-cream/40 p-6 sm:p-8"
+      className="rounded-3xl border border-glass-border bg-gradient-to-br from-glass to-white/[0.02] p-6 backdrop-blur-sm sm:p-8"
     >
-      <p className="text-xs font-semibold uppercase tracking-wide text-abyss">{episode.code}</p>
-      <h3 className="mt-1 font-display text-xl italic text-ink sm:text-2xl">{episode.title}</h3>
+      <p className="font-mono text-xs text-cyan-soft">{episode.code}</p>
+      <h3 className="mt-1 font-display font-medium text-xl italic text-ink sm:text-2xl">{episode.title}</h3>
 
-      <div className="mt-4 overflow-hidden rounded-xl">
+      <div className="mt-4 overflow-hidden rounded-xl border border-glass-border">
         <iframe
           title={`Player Spotify — ${episode.title}`}
           src={episode.spotifyEmbedUrl}
@@ -27,7 +27,7 @@ export default function PodcastEmbed({ episode }: { episode: PodcastEpisode }) {
         />
       </div>
 
-      <div className="mt-4 space-y-1 text-sm leading-relaxed text-ink/90">
+      <div className="mt-4 space-y-1 text-sm leading-relaxed text-ink-dim">
         <p>{episode.lineTopic}</p>
         <p>{episode.lineStructure}</p>
       </div>
@@ -39,7 +39,7 @@ export default function PodcastEmbed({ episode }: { episode: PodcastEpisode }) {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-abyss underline decoration-abyss/40 underline-offset-4 hover:decoration-abyss"
+            className="font-medium text-cyan-soft underline decoration-cyan/30 underline-offset-4 hover:decoration-cyan"
           >
             {link.label}
           </a>
