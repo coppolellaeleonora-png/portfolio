@@ -46,14 +46,27 @@ export default function ProjectCard({
             variant="reel"
           />
         ) : (
-          <img
-            src={withBasePath(project.media.src)}
-            alt={project.media.alt}
-            loading="lazy"
-            className={`w-full rounded-2xl border border-glass-border object-cover ${
-              project.media.aspectClassName ?? MEDIA_HEIGHT
-            }`}
-          />
+          <>
+            <img
+              src={withBasePath(project.media.src)}
+              alt={project.media.alt}
+              loading="lazy"
+              className={`w-full rounded-2xl border border-glass-border object-cover ${
+                project.media.aspectClassName ?? MEDIA_HEIGHT
+              }`}
+            />
+            {project.instagramLink && (
+              <a
+                href={project.instagramLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs text-cyan-soft underline decoration-cyan/30 underline-offset-4 hover:decoration-cyan"
+              >
+                Vedi il post su Instagram
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </>
         )}
       </div>
 

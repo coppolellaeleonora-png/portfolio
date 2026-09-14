@@ -14,7 +14,7 @@ export default function MediaSection() {
   const [selected, setSelected] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-    <section id="media" className="scroll-mt-28 px-4 py-24 sm:px-8">
+    <section id="media" className="scroll-mt-20 px-4 py-24 sm:px-8">
       <div className="mx-auto max-w-content">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -60,7 +60,7 @@ export default function MediaSection() {
                   src={withBasePath(sample.src)}
                   alt={sample.alt}
                   loading="lazy"
-                  className="h-40 w-auto object-cover transition-transform duration-300 group-hover:scale-105 sm:h-52"
+                  className="h-52 w-auto object-cover transition-transform duration-300 group-hover:scale-105 sm:h-64"
                 />
               </button>
             ))}

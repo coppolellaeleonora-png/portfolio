@@ -8,8 +8,8 @@ import RichText from './RichText';
 
 export default function Hero() {
   return (
-    <section id="intro" className="scroll-mt-28 px-4 pb-24 pt-2 sm:px-8 sm:pt-4">
-      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1fr] lg:items-stretch lg:gap-8">
+    <section id="intro" className="scroll-mt-20 px-4 pb-24 pt-2 sm:px-8 sm:pt-4">
+      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,12 +65,17 @@ export default function Hero() {
           className="relative"
         >
           <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-cyan/10 blur-3xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-glass-border bg-gradient-to-br from-glass to-white/[0.03] p-2 shadow-card backdrop-blur-sm lg:h-full">
-            <div className="relative h-full overflow-hidden rounded-[1.5rem]">
+          <div className="relative overflow-hidden rounded-[2rem] border border-glass-border bg-gradient-to-br from-glass to-white/[0.03] p-2 shadow-card backdrop-blur-sm">
+            <div className="relative overflow-hidden rounded-[1.5rem]">
               <img
                 src={withBasePath(hero.photo)}
                 alt={hero.photoAlt}
-                className="aspect-[4/5] w-full object-cover lg:aspect-auto lg:h-full"
+                // Altezza fissa (non legata al blocco di testo accanto, né
+                // al suo stato espanso): la foto è un fotogramma video
+                // molto largo (1800x698) e poco definito in verticale, se
+                // stirata più in altezza risulta sgranata e troppo
+                // ravvicinata sul volto.
+                className="h-[260px] w-full object-cover sm:h-[320px] lg:h-[400px]"
                 fetchPriority="high"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-abyss-950/60 via-transparent to-transparent" />

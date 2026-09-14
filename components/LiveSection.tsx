@@ -8,7 +8,7 @@ import RichText from './RichText';
 
 export default function LiveSection() {
   return (
-    <section id="live" className="scroll-mt-28 px-4 py-24 sm:px-8">
+    <section id="live" className="scroll-mt-20 px-4 py-24 sm:px-8">
       <div className="mx-auto max-w-content">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

@@ -51,7 +51,10 @@ export default function VideoEmbed(props: VideoEmbedProps) {
 
   if (loaded && hasLocalVideo && props.kind === 'instagram') {
     media = (
-      <div className={containerClassName}>
+      // Aspect ratio della registrazione dello schermo (1080x1950), non il
+      // 3:5 generico della card: coincide col fotogramma reale, così le
+      // scritte in basso al Reel non vengono tagliate da un crop verticale.
+      <div className="aspect-[1080/1950] w-full overflow-hidden rounded-2xl border border-glass-border bg-glass">
         <video
           src={withBasePath(props.localVideo!)}
           controls

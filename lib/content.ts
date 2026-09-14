@@ -44,6 +44,10 @@ export type ScriptingProject = {
   attribution: string;
   title: string;
   role: string;
+  // Link al post/carosello Instagram originale, mostrato sotto al media
+  // quando questo non è già un embed Instagram (es. il carosello TartAmare,
+  // che qui è mostrato come singola immagine).
+  instagramLink?: string;
   media:
     | {
         kind: 'instagram';
@@ -212,9 +216,9 @@ export const documentary = {
   coverAlt:
     'Fotogramma del documentario TursioNet con Eleonora Coppolella, analista dati bioacustici per NAUTA scientific srl, in laboratorio',
   caption:
-    'Intervento come esperta di bioacustica marina all\'interno del documentario "TursioNet — mitigare il conflitto fra delfini e pescatori", progetto di monitoraggio acustico del tursiope legato alla rete TursioNet (min. 04:09–05:35).',
+    'Intervento come esperta di bioacustica marina all\'interno del documentario "TursioNet — mitigare il conflitto fra delfini e pescatori", progetto di monitoraggio acustico del delfino tursiope legato alla rete TursioNet (min. 04:09–05:35).',
   description:
-    'Elaborazione e analisi dei dati audio dai sistemi di registrazione acustica del progetto TursioNet per il tracciamento e lo studio del comportamento del tursiope, con spiegazione dei risultati resa accessibile al pubblico generalista.',
+    'Elaborazione e analisi dei dati audio dai sistemi di registrazione acustica del progetto TursioNet, finanziato dalla Fondazione Principe Alberto II di Monaco nell\'ambito dell\'Iniziativa Pelagos, per il tracciamento e lo studio del comportamento del delfino tursiope.',
 };
 
 // --- Sezione 4: Live & Scuole ---------------------------------------------
@@ -270,4 +274,4 @@ export const contact = {
 // background scientifico" nell'Hero.
 // Fonte percorso di studi: CV di Eleonora.
 export const aboutLong =
-  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la laurea triennale in Scienze Biologiche all'Università di Pavia, con una tesi sulle interazioni acustiche tra tursiopi e attività di pesca in Mar Ligure. Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team. Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.";
+  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la laurea triennale in Scienze Biologiche all'Università di Pavia, con una tesi sulle interazioni acustiche tra delfini e attività di pesca in Mar Ligure. Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team. Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.";
