@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { withBasePath } from '@/lib/utils';
 
 type VideoEmbedProps = {
@@ -16,17 +16,23 @@ type VideoEmbedProps = {
   // "wide" (default) mantiene il comportamento precedente.
   variant?: 'reel' | 'wide';
 } & (
-  | { kind: 'instagram'; permalink: string }
+  | {
+      kind: 'instagram';
+      permalink: string;
+      // Screen recording del Reel (UI Instagram in dark mode inclusa): se
+      // presente viene riprodotta al posto dell'iframe embed di Instagram,
+      // la cui veste grafica bianca stona col tema scuro del sito. Il link
+      // per vedere il Reel sulla vera pagina Instagram resta comunque
+      // sempre visibile sotto al video, mai sovrapposto.
+      localVideo?: string;
+    }
   | { kind: 'vimeo'; embedUrl: string }
 );
 
 // Ricava l'URL della pagina embed dedicata di Instagram da un permalink
 // (es. https://www.instagram.com/reel/ABC123/ -> .../reel/ABC123/embed/captioned/).
-// Renderizzata in un <iframe> vero (non il widget blockquote + embed.js, che
-// si è dimostrato inaffidabile con più Reel sulla stessa pagina). L'iframe
-// nativo di Instagram ha però una veste grafica bianca che stona con il tema
-// scuro del sito: per questo resta nascosto dietro la copertina (screenshot
-// reale + play button) finché non viene cliccato, invece di caricarsi da solo.
+// Usata solo come fallback quando non è disponibile una registrazione dello
+// schermo (localVideo) per il Reel.
 function toEmbedUrl(permalink: string): string {
   const trimmed = permalink.replace(/\/?$/, '/');
   return `${trimmed}embed/captioned/`;
@@ -35,17 +41,32 @@ function toEmbedUrl(permalink: string): string {
 export default function VideoEmbed(props: VideoEmbedProps) {
   const [loaded, setLoaded] = useState(false);
   const isReel = props.variant === 'reel';
+  const hasLocalVideo = props.kind === 'instagram' && Boolean(props.localVideo);
 
-  if (loaded) {
+  const containerClassName = `overflow-hidden rounded-2xl border border-glass-border bg-glass ${
+    isReel ? 'aspect-[3/5] w-full' : 'aspect-video w-full bg-black'
+  }`;
+
+  let media: ReactNode;
+
+  if (loaded && hasLocalVideo && props.kind === 'instagram') {
+    media = (
+      <div className={containerClassName}>
+        <video
+          src={withBasePath(props.localVideo!)}
+          controls
+          autoPlay
+          playsInline
+          className="h-full w-full object-cover"
+        >
+          <track kind="captions" />
+        </video>
+      </div>
+    );
+  } else if (loaded) {
     const embedUrl = props.kind === 'instagram' ? toEmbedUrl(props.permalink) : props.embedUrl;
-    return (
-      <div
-        className={`overflow-hidden rounded-2xl border border-glass-border bg-glass ${
-          isReel
-            ? 'mx-auto aspect-[3/5] w-full max-w-[320px] sm:max-w-[360px]'
-            : 'aspect-video w-full bg-black'
-        }`}
-      >
+    media = (
+      <div className={containerClassName}>
         <iframe
           src={embedUrl}
           title={props.title}
@@ -55,37 +76,56 @@ export default function VideoEmbed(props: VideoEmbedProps) {
         />
       </div>
     );
+  } else {
+    media = (
+      <button
+        type="button"
+        onClick={() => setLoaded(true)}
+        className="group relative block w-full overflow-hidden rounded-2xl border border-glass-border focus-visible:outline-offset-4"
+        aria-label={`Riproduci: ${props.title}`}
+      >
+        <img
+          src={withBasePath(props.poster)}
+          alt={props.posterAlt}
+          loading="lazy"
+          className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+            isReel ? 'aspect-[3/5]' : (props.mediaHeightClassName ?? 'aspect-[4/5]')
+          }`}
+        />
+        <span className="absolute inset-0 bg-gradient-to-t from-abyss-950/85 via-abyss-950/10 to-transparent transition-opacity group-hover:from-abyss-950/70" />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="relative flex h-16 w-16 items-center justify-center">
+            <span className="absolute inset-0 animate-pulse-ring rounded-full bg-cyan/40" />
+            <span className="relative flex h-14 w-14 items-center justify-center rounded-full border border-cyan/50 bg-gradient-to-br from-abyss-800/90 to-abyss-900/90 text-xl text-cyan-soft backdrop-blur-sm transition-transform group-hover:scale-110">
+              ▶
+            </span>
+          </span>
+        </span>
+        {!hasLocalVideo && (
+          <span className="absolute right-3 top-3 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-[11px] text-cyan-soft backdrop-blur-sm">
+            {props.kind === 'instagram' ? 'Guarda il Reel su Instagram' : 'Guarda il video'}
+          </span>
+        )}
+      </button>
+    );
+  }
+
+  if (props.kind !== 'instagram') {
+    return media;
   }
 
   return (
-    <button
-      type="button"
-      onClick={() => setLoaded(true)}
-      className={`group relative block overflow-hidden rounded-2xl border border-glass-border focus-visible:outline-offset-4 ${
-        isReel ? 'mx-auto w-full max-w-[320px] sm:max-w-[360px]' : 'w-full'
-      }`}
-      aria-label={`Riproduci: ${props.title}`}
-    >
-      <img
-        src={withBasePath(props.poster)}
-        alt={props.posterAlt}
-        loading="lazy"
-        className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-          isReel ? 'aspect-[3/5]' : (props.mediaHeightClassName ?? 'aspect-[4/5]')
-        }`}
-      />
-      <span className="absolute inset-0 bg-gradient-to-t from-abyss-950/85 via-abyss-950/10 to-transparent transition-opacity group-hover:from-abyss-950/70" />
-      <span className="absolute inset-0 flex items-center justify-center">
-        <span className="relative flex h-16 w-16 items-center justify-center">
-          <span className="absolute inset-0 animate-pulse-ring rounded-full bg-cyan/40" />
-          <span className="relative flex h-14 w-14 items-center justify-center rounded-full border border-cyan/50 bg-gradient-to-br from-abyss-800/90 to-abyss-900/90 text-xl text-cyan-soft backdrop-blur-sm transition-transform group-hover:scale-110">
-            ▶
-          </span>
-        </span>
-      </span>
-      <span className="absolute right-3 top-3 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-[11px] text-cyan-soft backdrop-blur-sm">
-        {props.kind === 'instagram' ? 'Guarda il Reel su Instagram' : 'Guarda il video'}
-      </span>
-    </button>
+    <div className={isReel ? 'mx-auto w-full max-w-[320px] sm:max-w-[360px]' : 'w-full'}>
+      {media}
+      <a
+        href={props.permalink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs text-cyan-soft underline decoration-cyan/30 underline-offset-4 hover:decoration-cyan"
+      >
+        Guarda il Reel su Instagram
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
   );
 }

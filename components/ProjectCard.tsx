@@ -41,6 +41,7 @@ export default function ProjectCard({
             permalink={project.media.permalink}
             poster={project.media.poster}
             posterAlt={project.media.posterAlt}
+            localVideo={project.media.localVideo}
             title={project.title}
             variant="reel"
           />

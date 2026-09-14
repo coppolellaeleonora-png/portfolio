@@ -45,7 +45,17 @@ export type ScriptingProject = {
   title: string;
   role: string;
   media:
-    | { kind: 'instagram'; permalink: string; poster: string; posterAlt: string }
+    | {
+        kind: 'instagram';
+        permalink: string;
+        poster: string;
+        posterAlt: string;
+        // Screen recording del Reel (schermo del telefono, UI Instagram in
+        // dark mode inclusa): riprodotto al posto dell'iframe embed di
+        // Instagram, che ha una veste grafica bianca e stona col tema scuro
+        // del sito. Il link a Instagram resta comunque sempre visibile.
+        localVideo?: string;
+      }
     | { kind: 'image'; src: string; alt: string; aspectClassName?: string };
   ctaLabel: string; // testo del bottone di espansione (es. "Dietro le quinte")
   behindTheScenes: string[]; // paragrafi mostrati una volta espanso
@@ -63,6 +73,7 @@ export const scriptingProjects: ScriptingProject[] = [
       poster: '/images/projects/reel-museo-poster.webp',
       posterAlt:
         'Fotogramma del Reel Instagram girato al Museo Kosmos di Pavia per la mostra Oceani Perduti, con il ricercatore Riccardo davanti alla ricostruzione di un plesiosauro',
+      localVideo: '/videos/projects/reel-museo.mp4',
     },
     ctaLabel: 'Dietro le quinte',
     behindTheScenes: [
@@ -85,6 +96,7 @@ export const scriptingProjects: ScriptingProject[] = [
       poster: '/images/projects/reel-cetacei-poster.webp',
       posterAlt:
         'Fotogramma del Reel Instagram a bordo dell\'imbarcazione di Golfo Paradiso Whale Watching, durante il racconto di un avvistamento di zifi',
+      localVideo: '/videos/projects/reel-cetacei.mp4',
     },
     ctaLabel: 'Dietro le quinte',
     behindTheScenes: [
@@ -254,7 +266,8 @@ export const contact = {
   location: 'Milano',
 };
 
-// Testo esteso "Chi sono" (per eventuale futura sezione "Biografia estesa" —
-// non richiesto esplicitamente dalla struttura attuale ma disponibile).
+// Testo esteso "Chi sono", mostrato nella card espandibile "Il mio
+// background scientifico" nell'Hero.
+// Fonte percorso di studi: CV di Eleonora.
 export const aboutLong =
-  "Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team. Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.";
+  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la laurea triennale in Scienze Biologiche all'Università di Pavia, con una tesi sulle interazioni acustiche tra tursiopi e attività di pesca in Mar Ligure. Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team. Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.";
