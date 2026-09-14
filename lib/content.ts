@@ -24,7 +24,7 @@ export const nav = [
 export const hero = {
   name: site.name,
   role: site.role,
-  bio: 'Biologa marina specializzata in bioacustica con base a Milano. Trasformo concetti scientifici complessi — dai canti dei cetacei alle dinamiche marine — in storie visive e dal vivo capaci di ingaggiare il pubblico di massa. Curo la comunicazione social dell\'associazione di divulgazione scientifica "Baila Murena", co-ideo concept e scalette per i Reel e porto la bioacustica nelle scuole.',
+  bio: "Biologa marina specializzata in bioacustica con base a Milano. Trasformo concetti scientifici complessi — dai canti dei cetacei alle dinamiche marine — in storie visive e dal vivo capaci di ingaggiare il pubblico di massa. Curo la comunicazione social dell'associazione di divulgazione scientifica Baila Murena, co-ideo concept e scalette per i Reel e porto la bioacustica nelle scuole.",
   photo: '/images/hero/eleonora-hero.webp',
   // Fotogramma dal documentario TursioNet (vedi sezione Audio & Media), in
   // cui parla come analista dati bioacustici.
@@ -54,7 +54,7 @@ export type ScriptingProject = {
 export const scriptingProjects: ScriptingProject[] = [
   {
     id: 'reel-museo',
-    attribution: 'Per "Baila Murena"',
+    attribution: 'Per Baila Murena',
     title: 'Storytelling visivo per la mostra "Oceani Perduti"',
     role: 'Ruolo: co-ideazione del concept, co-regia di campo, selezione video e brief di montaggio — in collaborazione con Kosmos, Museo di Storia Naturale dell\'Università di Pavia.',
     media: {
@@ -66,7 +66,7 @@ export const scriptingProjects: ScriptingProject[] = [
     },
     ctaLabel: 'Dietro le quinte',
     behindTheScenes: [
-      'Format: divulgativo / ironico. Il Reel nasce per pubblicizzare la mostra "Oceani Perduti" ed è pubblicato sull\'account Instagram di "Baila Murena", il progetto di divulgazione scientifica di cui faccio parte.',
+      'Format: divulgativo / ironico. Il Reel nasce per pubblicizzare la mostra "Oceani Perduti" ed è pubblicato sull\'account Instagram di Baila Murena, il progetto di divulgazione scientifica di cui faccio parte.',
       '00:00–00:03 Hook — mezzobusto su Eleonora, seduta, che chiede a Fabio "Fabione, ma cosa stai facendo?".',
       '00:03–00:12 Gag di apertura — panoramica su Fabio, confuso e spaesato, che finge di non sapere dove si trovi mentre l\'inquadratura porta l\'attenzione sulla ricostruzione del plesiosauro: l\'obiettivo narrativo è creare curiosità con un tono leggero.',
       '00:13–00:26 Spiegazione e call to action — Riccardo interviene, identifica il plesiosauro e sposta lo sguardo dalla scena alla camera per rompere la quarta parete e invitare i follower a visitare la mostra.',
@@ -76,7 +76,7 @@ export const scriptingProjects: ScriptingProject[] = [
   },
   {
     id: 'reel-cetacei',
-    attribution: 'Per "Baila Murena"',
+    attribution: 'Per Baila Murena',
     title: 'Un giorno di avvistamento cetacei nel Santuario Pelagos',
     role: 'Ruolo: co-ideazione del concept, co-regia di campo, selezione video e brief di montaggio — in collaborazione con Golfo Paradiso Whale Watching.',
     media: {
@@ -117,9 +117,9 @@ export const scriptingProjects: ScriptingProject[] = [
   },
   {
     id: 'lezione-cetacei-scuola',
-    attribution: 'Con "Baila Murena"',
+    attribution: 'Con Baila Murena',
     title: 'I suoni del mare: bioacustica in classe',
-    role: 'Ruolo: insieme al team di "Baila Murena", stesura della scaletta, adattamento del linguaggio scientifico e conduzione in aula, con un focus personale su cetacei e comunicazione acustica marina.',
+    role: 'Ruolo: insieme al team di Baila Murena, stesura della scaletta, adattamento del linguaggio scientifico e conduzione in aula, con un focus personale su cetacei e comunicazione acustica marina.',
     media: {
       kind: 'image',
       src: '/images/projects/lezione-cetacei-scuola.webp',
@@ -127,7 +127,7 @@ export const scriptingProjects: ScriptingProject[] = [
     },
     ctaLabel: 'Scopri di più',
     behindTheScenes: [
-      'Format "Baila Murena at school", per le scuole secondarie di primo grado: l\'obiettivo è far conoscere la biologia marina attraverso i concetti di ecosistemi e biodiversità.',
+      'Format Baila Murena at school, per le scuole secondarie di primo grado: l\'obiettivo è far conoscere la biologia marina attraverso i concetti di ecosistemi e biodiversità.',
       '"I suoni del mare" — gli alunni vengono guidati in un viaggio di ascolto immersivo alla scoperta dei repertori acustici degli abitanti del mare e di come li usano per comunicare, cacciare e orientarsi.',
       'Il mio contributo è la parte dedicata ai cetacei: dallo spettrogramma del delfino comune (Delphinus delphis) a quello del capodoglio (Physeter macrocephalus), per far letteralmente "vedere" come suonano sott\'acqua.',
     ],
@@ -152,7 +152,9 @@ export const podcastEpisodes: PodcastEpisode[] = [
     id: 's3e2',
     code: 'S3 E2',
     title: 'Restoration ecology e altre traiettorie dell\'ecologia',
-    spotifyEmbedUrl: 'https://open.spotify.com/embed/episode/14HYoC7dplrDBR0viOdCLa',
+    // ?t=<secondi> fa partire il player Spotify già al minuto chiave
+    // (24:30), senza tagliare l'episodio: si può comunque riavvolgere.
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/episode/14HYoC7dplrDBR0viOdCLa?t=1470',
     listenLinks: [
       { label: 'Apple Podcasts', url: 'https://podcasts.apple.com/it/podcast/s3-e2-restoration-ecology-e-altre-traiettorie-dellecologia/id1815495308?i=1000760445934' },
       { label: 'Amazon Music', url: "https://music.amazon.co.uk/podcasts/8e226517-3c92-46e0-95e3-f553993b6e3a/episodes/475a6d70-7179-4baa-b490-f01cc9646967/baila-murena-s3-e2-restoration-ecology-e-altre-traiettorie-dell'ecologia" },
@@ -166,7 +168,8 @@ export const podcastEpisodes: PodcastEpisode[] = [
     id: 's3e5',
     code: 'S3 E5',
     title: 'Cetacei, oltre il mito',
-    spotifyEmbedUrl: 'https://open.spotify.com/embed/episode/0i7uYYqZVpt0DSryaUWOil',
+    // Minuto chiave 16:41.
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/episode/0i7uYYqZVpt0DSryaUWOil?t=1001',
     listenLinks: [
       { label: 'Apple Podcasts', url: 'https://podcasts.apple.com/it/podcast/s3-e5-cetacei-oltre-il-mito/id1815495308?i=1000764778089' },
       { label: 'Amazon Music', url: 'https://music.amazon.co.uk/podcasts/8e226517-3c92-46e0-95e3-f553993b6e3a/episodes/54517835-2b89-4547-bfb4-3c6914567b39/baila-murena-s3-e5-cetacei-oltre-il-mito' },
@@ -214,11 +217,11 @@ export const livePhotos = [
 export const methodology = {
   intro: 'Portare la biologia marina nelle scuole',
   fixedText:
-    'Insieme al team di "Baila Murena" porto la bioacustica marina nelle scuole e negli eventi dal vivo, adattando linguaggio e attività pratiche all\'età del pubblico.',
+    'Insieme al team di Baila Murena porto la biologia marina nelle scuole e negli eventi dal vivo, adattando linguaggio e attività pratiche all\'età del pubblico.',
   expandTitle: 'Scopri il metodo usato a scuola',
   formats: [
     {
-      name: '"Baila Murena at school" — Scuole primarie',
+      name: 'Baila Murena at school — Scuole primarie',
       objective: 'Far conoscere la biologia marina, spiegandone le basi.',
       role: 'Insieme ad altri membri del team, mi occupo della stesura della scaletta, della preparazione della presentazione, dell\'organizzazione delle attività pratiche, dell\'adattamento del linguaggio scientifico per gli alunni e della conduzione dell\'evento dal vivo, focalizzandomi sulle conoscenze e attività bioacustiche.',
       steps: [
@@ -230,7 +233,7 @@ export const methodology = {
       ],
     },
     {
-      name: '"Baila Murena at school" — Scuole secondarie di primo grado',
+      name: 'Baila Murena at school — Scuole secondarie di primo grado',
       objective: 'Far conoscere la biologia marina attraverso i concetti di ecosistemi e biodiversità.',
       role: 'Stesso ruolo trasversale del format per le primarie, con contenuti e linguaggio adattati a un pubblico più grande.',
       steps: [

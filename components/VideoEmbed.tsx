@@ -83,7 +83,7 @@ export default function VideoEmbed(props: VideoEmbedProps) {
           </span>
         </span>
       </span>
-      <span className="absolute bottom-3 left-3 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-[11px] text-cyan-soft backdrop-blur-sm">
+      <span className="absolute right-3 top-3 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-[11px] text-cyan-soft backdrop-blur-sm">
         {props.kind === 'instagram' ? 'Guarda il Reel su Instagram' : 'Guarda il video'}
       </span>
     </button>

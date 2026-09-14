@@ -5,6 +5,7 @@ import { withBasePath } from '@/lib/utils';
 import type { ScriptingProject } from '@/lib/content';
 import ExpandableCard from './ExpandableCard';
 import VideoEmbed from './VideoEmbed';
+import RichText from './RichText';
 
 // Altezza del media fissa (non legata all'aspect ratio della foto sorgente):
 // evita che uno screenshot verticale allunghi la card e lasci vuoto sotto al
@@ -57,16 +58,20 @@ export default function ProjectCard({
 
       <div className={reversed ? 'lg:order-1' : ''}>
         <span className="inline-block rounded-full border border-cyan/30 bg-gradient-to-r from-cyan/20 to-cyan-deep/10 px-3 py-1 font-mono text-[11px] text-cyan-soft">
-          {project.attribution}
+          <RichText text={project.attribution} />
         </span>
         <h3 className="mt-4 font-display font-medium text-2xl italic text-ink sm:text-3xl">
           {project.title}
         </h3>
-        <p className="mt-3 text-sm leading-relaxed text-ink-dim sm:text-base">{project.role}</p>
+        <p className="mt-3 text-sm leading-relaxed text-ink-dim sm:text-base">
+          <RichText text={project.role} />
+        </p>
 
         <ExpandableCard collapsedLabel={project.ctaLabel} className="mt-6">
           {project.behindTheScenes.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
+            <p key={i}>
+              <RichText text={paragraph} />
+            </p>
           ))}
         </ExpandableCard>
       </div>

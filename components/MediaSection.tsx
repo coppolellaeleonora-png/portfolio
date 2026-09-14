@@ -27,10 +27,10 @@ export default function MediaSection() {
           </p>
           <h2 className="mt-3 font-display font-medium text-4xl italic text-ink sm:text-5xl">Audio e media</h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-dim sm:text-lg">
-            Content curation e materiali social per la sezione podcast di &quot;Baila
-            Murena&quot;, dedicata ad approfondimenti e curiosità sulla vita marina, fino a
-            un&apos;esperienza come esperta di analisi dati bioacustici in un documentario
-            scientifico.
+            Content curation e materiali social per la sezione podcast di{' '}
+            <em className="italic">Baila Murena</em>, dedicata ad approfondimenti e curiosità
+            sulla vita marina, fino a un&apos;esperienza come esperta di analisi dati bioacustici
+            in un documentario scientifico.
           </p>
         </motion.div>
 
@@ -44,7 +44,8 @@ export default function MediaSection() {
         {/* Content sociale curato per Baila Murena: grafica episodi e Stories */}
         <div className="mt-8">
           <p className="mb-3 font-mono text-xs text-ink-faint">
-            Content curation social per &quot;Baila Murena&quot; — locandine e Stories interattive
+            Content curation social per <em className="italic">Baila Murena</em> — locandine e
+            Stories interattive
           </p>
           <div className="flex gap-4 overflow-x-auto pb-2">
             {socialContentSamples.map((sample) => (

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { livePhotos, methodology } from '@/lib/content';
 import PhotoGrid from './PhotoGrid';
 import ExpandableCard from './ExpandableCard';
+import RichText from './RichText';
 
 export default function LiveSection() {
   return (
@@ -36,7 +37,7 @@ export default function LiveSection() {
             {methodology.intro}
           </h3>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-dim sm:text-base">
-            {methodology.fixedText}
+            <RichText text={methodology.fixedText} />
           </p>
 
           <ExpandableCard

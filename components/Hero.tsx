@@ -4,11 +4,12 @@ import { motion } from 'framer-motion';
 import { withBasePath } from '@/lib/utils';
 import { hero, aboutLong } from '@/lib/content';
 import ExpandableCard from './ExpandableCard';
+import RichText from './RichText';
 
 export default function Hero() {
   return (
     <section id="intro" className="scroll-mt-28 px-4 pb-24 pt-2 sm:px-8 sm:pt-4">
-      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1fr] lg:items-stretch lg:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,7 +32,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-7 max-w-xl text-base leading-relaxed text-ink-dim sm:text-lg">
-            {hero.bio}
+            <RichText text={hero.bio} />
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -64,12 +65,12 @@ export default function Hero() {
           className="relative"
         >
           <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-cyan/10 blur-3xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-glass-border bg-gradient-to-br from-glass to-white/[0.03] p-2 shadow-card backdrop-blur-sm">
-            <div className="relative overflow-hidden rounded-[1.5rem]">
+          <div className="relative overflow-hidden rounded-[2rem] border border-glass-border bg-gradient-to-br from-glass to-white/[0.03] p-2 shadow-card backdrop-blur-sm lg:h-full">
+            <div className="relative h-full overflow-hidden rounded-[1.5rem]">
               <img
                 src={withBasePath(hero.photo)}
                 alt={hero.photoAlt}
-                className="aspect-video w-full object-cover"
+                className="aspect-[4/5] w-full object-cover lg:aspect-auto lg:h-full"
                 fetchPriority="high"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-abyss-950/60 via-transparent to-transparent" />
