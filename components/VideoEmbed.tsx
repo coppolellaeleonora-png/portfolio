@@ -31,11 +31,7 @@ type VideoEmbedProps = {
   | {
       kind: 'vimeo';
       embedUrl: string;
-      // Secondo da cui far partire la riproduzione. Il seek è fatto via
-      // Vimeo Player SDK (non via #t= nell'URL): l'SDK garantisce che il
-      // salto al minuto giusto sia completato PRIMA di avviare il play,
-      // evitando che si veda per un istante il fotogramma iniziale del
-      // video (schermata scura/copertina) prima di saltare a quello giusto.
+      // Secondo da cui far partire la riproduzione, via Vimeo Player SDK.
       startSeconds?: number;
     }
 );
@@ -80,78 +76,113 @@ function loadVimeoPlayerScript(): Promise<void> {
   return vimeoScriptPromise;
 }
 
-// Iframe Vimeo pilotato via Player SDK: mentre l'iframe carica, cerca al
-// minuto giusto e avvia la riproduzione, la copertina statica (la stessa
-// foto dell'anteprima, non quella scura di Vimeo) resta sopra — niente
-// schermate scure o fotogrammi sbagliati "di passaggio". Sparisce solo
-// all'evento 'playing', quando il fotogramma giusto è realmente a schermo.
-function VimeoEmbed({
+// Documentario: l'iframe Vimeo (e il seek al minuto giusto) partono in
+// sottofondo appena il componente compare in pagina, non al click — così i
+// ~2s di caricamento dell'iframe (rete/SDK di terze parti, non comprimibili
+// lato nostro) sono già passati PRIMA che l'utente clicchi "play", e il
+// video può partire quasi subito. Finché non è davvero in riproduzione
+// resta sopra la stessa copertina dell'anteprima (il suo volto), mai la
+// schermata scura di Vimeo: click -> "in attesa" (ancora la copertina, play
+// silenzioso appena pronto) -> 'playing' (si scopre il video).
+function VimeoDocumentaryEmbed({
   embedUrl,
   title,
   startSeconds,
   poster,
   posterAlt,
-  className,
+  boxClassName,
 }: {
   embedUrl: string;
   title: string;
   startSeconds?: number;
   poster: string;
   posterAlt: string;
-  className: string;
+  boxClassName: string;
 }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [showPoster, setShowPoster] = useState(true);
+  const playerRef = useRef<VimeoPlayerInstance | null>(null);
+  const readyRef = useRef<Promise<void> | null>(null);
+  const [phase, setPhase] = useState<'idle' | 'starting' | 'playing'>('idle');
 
   useEffect(() => {
-    if (!startSeconds) {
-      setShowPoster(false);
-      return;
-    }
+    if (!iframeRef.current) return;
     let cancelled = false;
-    let player: VimeoPlayerInstance | undefined;
-    const reveal = () => {
-      if (!cancelled) setShowPoster(false);
-    };
-    // Rete lenta o SDK bloccato: non restare bloccati sulla copertina.
-    const safetyTimeout = window.setTimeout(reveal, 8000);
 
-    loadVimeoPlayerScript()
+    const ready = loadVimeoPlayerScript()
       .then(() => {
-        if (cancelled || !iframeRef.current || !window.Vimeo) throw new Error('no sdk');
-        player = new window.Vimeo.Player(iframeRef.current);
-        player.on('playing', reveal);
-        return player.ready().then(() => {
-          if (cancelled || !player) return;
-          return player.setCurrentTime(startSeconds).then(() => player?.play());
+        // "cancelled" qui vuol dire solo che questo effetto è stato
+        // rimontato (es. React StrictMode in sviluppo) prima che lo script
+        // finisse di caricare: non è un vero errore, si esce silenziosamente
+        // e se ne occuperà il prossimo mount.
+        if (cancelled) return;
+        if (!iframeRef.current || !window.Vimeo) {
+          throw new Error('Vimeo Player SDK non disponibile');
+        }
+        const player = new window.Vimeo.Player(iframeRef.current);
+        playerRef.current = player;
+        player.on('playing', () => {
+          if (!cancelled) setPhase('playing');
         });
+        return player.ready();
       })
-      .catch(reveal);
+      .then(() => {
+        if (cancelled || !startSeconds) return;
+        return playerRef.current?.setCurrentTime(startSeconds).then(() => undefined);
+      });
+
+    readyRef.current = ready;
 
     return () => {
       cancelled = true;
-      window.clearTimeout(safetyTimeout);
-      player?.destroy?.().catch(() => {});
+      playerRef.current?.destroy?.().catch(() => {});
     };
   }, [startSeconds]);
 
+  const handlePlay = () => {
+    setPhase('starting');
+    (readyRef.current ?? Promise.resolve())
+      .then(() => playerRef.current?.play())
+      .catch(() => setPhase('playing')); // SDK/rete KO: mostra comunque l'iframe, playsinline nativo
+  };
+
   return (
-    <div className="relative h-full w-full">
-      <iframe
-        ref={iframeRef}
-        src={embedUrl}
-        title={title}
-        className={className}
-        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-        allowFullScreen
-      />
-      {showPoster && (
-        <img
-          src={withBasePath(poster)}
-          alt={posterAlt}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+    <div className={boxClassName}>
+      <div className="relative h-full w-full">
+        <iframe
+          ref={iframeRef}
+          src={embedUrl}
+          title={title}
+          className="h-full w-full"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
         />
-      )}
+        {phase !== 'playing' && (
+          <button
+            type="button"
+            onClick={handlePlay}
+            disabled={phase === 'starting'}
+            className="group absolute inset-0 block focus-visible:outline-offset-4"
+            aria-label={`Riproduci: ${title}`}
+          >
+            <img
+              src={withBasePath(poster)}
+              alt={posterAlt}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="relative flex h-16 w-16 items-center justify-center">
+                <span
+                  className={`absolute inset-0 rounded-full bg-cyan/40 ${phase === 'starting' ? 'animate-pulse' : 'animate-pulse-ring'}`}
+                />
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-full border border-cyan/50 bg-gradient-to-br from-abyss-800/90 to-abyss-900/90 text-xl text-cyan-soft backdrop-blur-sm transition-transform group-hover:scale-110">
+                  ▶
+                </span>
+              </span>
+            </span>
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -181,7 +212,18 @@ export default function VideoEmbed(props: VideoEmbedProps) {
 
   let media: ReactNode;
 
-  if (loaded && hasLocalVideo && props.kind === 'instagram') {
+  if (props.kind === 'vimeo') {
+    media = (
+      <VimeoDocumentaryEmbed
+        embedUrl={props.embedUrl}
+        title={props.title}
+        startSeconds={props.startSeconds}
+        poster={props.poster}
+        posterAlt={props.posterAlt}
+        boxClassName={boxClassName}
+      />
+    );
+  } else if (loaded && hasLocalVideo && props.kind === 'instagram') {
     media = (
       <div className={boxClassName}>
         <video
@@ -198,21 +240,8 @@ export default function VideoEmbed(props: VideoEmbedProps) {
         </video>
       </div>
     );
-  } else if (loaded && props.kind === 'vimeo') {
-    media = (
-      <div className={boxClassName}>
-        <VimeoEmbed
-          embedUrl={props.embedUrl}
-          title={props.title}
-          startSeconds={props.startSeconds}
-          poster={props.poster}
-          posterAlt={props.posterAlt}
-          className="h-full w-full"
-        />
-      </div>
-    );
   } else if (loaded) {
-    const embedUrl = props.kind === 'instagram' ? toEmbedUrl(props.permalink) : '';
+    const embedUrl = toEmbedUrl(props.permalink);
     media = (
       <div className={boxClassName}>
         <iframe

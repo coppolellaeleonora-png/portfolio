@@ -76,9 +76,11 @@ export default function Lightbox({
                   goTo(-1);
                 }}
                 aria-label="Foto precedente"
-                className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-glass-border bg-abyss-900/80 text-xl text-ink backdrop-blur-sm transition-colors hover:border-cyan/40 hover:text-cyan-soft sm:left-6"
+                className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-glass-border bg-abyss-900/80 text-ink backdrop-blur-sm transition-colors hover:border-cyan/40 hover:text-cyan-soft sm:left-6"
               >
-                ‹
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
               </button>
               <button
                 type="button"
@@ -87,9 +89,11 @@ export default function Lightbox({
                   goTo(1);
                 }}
                 aria-label="Foto successiva"
-                className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-glass-border bg-abyss-900/80 text-xl text-ink backdrop-blur-sm transition-colors hover:border-cyan/40 hover:text-cyan-soft sm:right-6"
+                className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-glass-border bg-abyss-900/80 text-ink backdrop-blur-sm transition-colors hover:border-cyan/40 hover:text-cyan-soft sm:right-6"
               >
-                ›
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
               </button>
               <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-xs text-ink-dim backdrop-blur-sm">
                 {index! + 1} / {photos.length}
@@ -101,9 +105,12 @@ export default function Lightbox({
             type="button"
             onClick={onClose}
             aria-label="Chiudi immagine"
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-glass-border bg-abyss-900/80 text-lg font-bold text-ink backdrop-blur-sm transition-colors hover:border-cyan/40 hover:text-cyan-soft"
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-glass-border bg-abyss-900/80 text-ink backdrop-blur-sm transition-colors hover:border-cyan/40 hover:text-cyan-soft"
           >
-            ×
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-5 w-5">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
           </button>
         </motion.div>
       )}
