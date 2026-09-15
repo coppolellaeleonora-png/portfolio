@@ -95,11 +95,7 @@ export default function Hero() {
         </div>
 
         <ExpandableCard collapsedLabel="Il mio background scientifico" className="w-full text-center">
-          <div className="mx-auto max-w-xl space-y-3 text-left">
-            {aboutLong.map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))}
-          </div>
+          <p className="mx-auto max-w-2xl text-left">{aboutLong}</p>
         </ExpandableCard>
       </motion.div>
 

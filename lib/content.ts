@@ -278,10 +278,9 @@ export const contact = {
 };
 
 // Testo esteso "Chi sono", mostrato nella card espandibile "Il mio
-// background scientifico" nell'Hero. Diviso in due paragrafi più brevi
-// (percorso di studi / esperienza) invece di un unico blocco compatto.
+// background scientifico" nell'Hero. Testo completo (nessuna parola
+// tagliata): la card è larga apposta per distribuirlo su meno righe senza
+// accorciarlo, evitando l'effetto "unico blocco" compatto.
 // Fonte percorso di studi: CV di Eleonora.
-export const aboutLong = [
-  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la triennale in Scienze Biologiche a Pavia — tesi sulle interazioni acustiche tra delfini e attività di pesca in Mar Ligure.",
-  "Due anni di esperienza nell'analisi di dati bioacustici, tra report, conferenze e interventi in università, uniti alla passione per la divulgazione e il lavoro di squadra con ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.",
-];
+export const aboutLong =
+  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la laurea triennale in Scienze Biologiche all'Università di Pavia, con una tesi sulle interazioni acustiche tra delfini e attività di pesca in Mar Ligure. Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team. Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.";
