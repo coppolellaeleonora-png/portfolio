@@ -95,7 +95,7 @@ export default function Hero() {
         </div>
 
         <ExpandableCard collapsedLabel="Il mio background scientifico" className="w-full text-center">
-          <div className="mx-auto max-w-4xl space-y-3 text-left">
+          <div className="mx-auto max-w-5xl space-y-3 text-left">
             {aboutLong.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
