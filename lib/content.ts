@@ -212,11 +212,13 @@ export const socialContentSamples = [
 export const documentary = {
   title: 'TursioNet — mitigare il conflitto fra delfini e pescatori',
   role: 'Ruolo: analista dati bioacustici, per NAUTA scientific srl.',
-  // #t=4m9s fa partire la riproduzione già al minuto del suo intervento
-  // (senza tagliare il video: si può comunque riavvolgere fino all'inizio).
-  // autoplay=1: senza, al click il player restava in pausa sul fotogramma di
-  // copertina di Vimeo (non sul minuto giusto) e serviva un secondo click.
-  vimeoEmbedUrl: 'https://player.vimeo.com/video/1144840417?h=1ea4452de9&autoplay=1#t=4m9s',
+  vimeoEmbedUrl: 'https://player.vimeo.com/video/1144840417?h=1ea4452de9',
+  // Secondo da cui parte la riproduzione (4m9s), pilotato via Vimeo Player
+  // SDK in VideoEmbed — non tramite #t=/autoplay nell'URL: con l'URL il
+  // player mostrava per un istante il fotogramma iniziale del video prima
+  // di saltare al minuto giusto (e a volte restava in pausa lì, servendo un
+  // secondo click). L'SDK invece completa il seek prima di avviare il play.
+  startSeconds: 4 * 60 + 9,
   cover: '/images/media/documentario-cover.webp',
   coverAlt:
     'Fotogramma del documentario TursioNet con Eleonora Coppolella, analista dati bioacustici per NAUTA scientific srl, in laboratorio',

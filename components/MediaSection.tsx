@@ -78,6 +78,7 @@ export default function MediaSection() {
           <VideoEmbed
             kind="vimeo"
             embedUrl={documentary.vimeoEmbedUrl}
+            startSeconds={documentary.startSeconds}
             poster={documentary.cover}
             posterAlt={documentary.coverAlt}
             title={documentary.title}
