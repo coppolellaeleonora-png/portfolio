@@ -289,9 +289,7 @@ export default function VideoEmbed(props: VideoEmbedProps) {
         Guarda il Reel su Instagram
         <span aria-hidden="true">↗</span>
       </a>
-    ) : (
-      <p className="mt-3 font-mono text-xs text-cyan-soft">Guarda il video</p>
-    );
+    ) : null;
 
   return (
     <div className={isReel ? 'mx-auto w-full max-w-[320px] sm:max-w-[360px]' : 'w-full'}>
