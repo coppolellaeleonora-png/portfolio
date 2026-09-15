@@ -95,7 +95,7 @@ export default function Hero() {
         </div>
 
         <ExpandableCard collapsedLabel="Il mio background scientifico" className="w-full text-center">
-          <p className="mx-auto max-w-2xl text-left">{aboutLong}</p>
+          <p className="mx-auto max-w-4xl text-left">{aboutLong}</p>
         </ExpandableCard>
       </motion.div>
 
