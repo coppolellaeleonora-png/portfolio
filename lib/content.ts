@@ -280,7 +280,12 @@ export const contact = {
 // Testo esteso "Chi sono", mostrato nella card espandibile "Il mio
 // background scientifico" nell'Hero. Testo completo (nessuna parola
 // tagliata): la card è larga apposta per distribuirlo su meno righe senza
-// accorciarlo, evitando l'effetto "unico blocco" compatto.
+// accorciarlo, evitando l'effetto "unico blocco" compatto. Diviso in due
+// paragrafi esattamente dove andava a capo naturalmente il discorso
+// (percorso di studi + esperienza / attitudine al lavoro in team), non
+// riscritto: stesse identiche parole di prima, solo spezzate in due.
 // Fonte percorso di studi: CV di Eleonora.
-export const aboutLong =
-  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la laurea triennale in Scienze Biologiche all'Università di Pavia, con una tesi sulle interazioni acustiche tra delfini e attività di pesca in Mar Ligure. Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team. Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.";
+export const aboutLong = [
+  "Laureata con lode in Biologia ed Ecologia Marina all'Università di Genova, dopo la laurea triennale in Scienze Biologiche all'Università di Pavia, con una tesi sulle interazioni acustiche tra delfini e attività di pesca in Mar Ligure. Unisco due anni di esperienza nell'analisi e nell'elaborazione di dati bioacustici — condotta con software dedicati e sfociata in report, conferenze e interventi in università — alla passione per la divulgazione e la progettazione multimediale in team.",
+  "Negli anni ho sviluppato una spiccata attitudine al lavoro multidisciplinare, collaborando quotidianamente con figure diverse — colleghi ricercatori, illustratori, insegnanti, sound designer e video editor — per tradurre la scienza in format ingaggianti.",
+];
