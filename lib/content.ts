@@ -121,7 +121,9 @@ export const scriptingProjects: ScriptingProject[] = [
       kind: 'image',
       src: '/images/projects/rubrica-slide-1.webp',
       alt: 'Prima slide del carosello Instagram "Il linguaggio del mare", con spettrogramma e delfini in superficie',
-      aspectClassName: 'aspect-square',
+      // Immagine sorgente già perfettamente quadrata (900x900): il cap di
+      // larghezza la rimpicciolisce senza tagliare nulla.
+      aspectClassName: 'aspect-square mx-auto max-w-[240px] sm:max-w-[300px]',
     },
     ctaLabel: 'Leggi lo script completo',
     behindTheScenes: [
@@ -212,7 +214,9 @@ export const documentary = {
   role: 'Ruolo: analista dati bioacustici, per NAUTA scientific srl.',
   // #t=4m9s fa partire la riproduzione già al minuto del suo intervento
   // (senza tagliare il video: si può comunque riavvolgere fino all'inizio).
-  vimeoEmbedUrl: 'https://player.vimeo.com/video/1144840417?h=1ea4452de9#t=4m9s',
+  // autoplay=1: senza, al click il player restava in pausa sul fotogramma di
+  // copertina di Vimeo (non sul minuto giusto) e serviva un secondo click.
+  vimeoEmbedUrl: 'https://player.vimeo.com/video/1144840417?h=1ea4452de9&autoplay=1#t=4m9s',
   cover: '/images/media/documentario-cover.webp',
   coverAlt:
     'Fotogramma del documentario TursioNet con Eleonora Coppolella, analista dati bioacustici per NAUTA scientific srl, in laboratorio',

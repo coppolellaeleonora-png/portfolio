@@ -34,28 +34,6 @@ export default function Hero() {
           <p className="mt-7 max-w-xl text-base leading-relaxed text-ink-dim sm:text-lg">
             <RichText text={hero.bio} />
           </p>
-
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <a
-              href="#scripting"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-cyan-soft to-cyan-deep px-6 py-3 text-sm font-semibold text-abyss-950 shadow-glow transition-transform hover:scale-[1.03]"
-            >
-              Scopri i progetti
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-            <a
-              href="#contatti"
-              className="rounded-full border border-glass-border px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-cyan/50 hover:text-cyan-soft"
-            >
-              Contattami
-            </a>
-          </div>
-
-          <ExpandableCard collapsedLabel="Il mio background scientifico" className="mt-6">
-            <p>{aboutLong}</p>
-          </ExpandableCard>
         </motion.div>
 
         <motion.div
@@ -89,11 +67,43 @@ export default function Hero() {
         </motion.div>
       </div>
 
+      {/* CTA e background scientifico: fuori dalla griglia a due colonne e
+          centrati, così aprire la card espandibile non allunga la colonna
+          di testo né sposta la foto accanto. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25, duration: 0.6 }}
+        className="mx-auto mt-10 flex max-w-content flex-col items-center gap-6 text-center"
+      >
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#scripting"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-cyan-soft to-cyan-deep px-6 py-3 text-sm font-semibold text-abyss-950 shadow-glow transition-transform hover:scale-[1.03]"
+          >
+            Scopri i progetti
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </a>
+          <a
+            href="#contatti"
+            className="rounded-full border border-glass-border px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-cyan/50 hover:text-cyan-soft"
+          >
+            Contattami
+          </a>
+        </div>
+
+        <ExpandableCard collapsedLabel="Il mio background scientifico" className="w-full max-w-xl text-left">
+          <p>{aboutLong}</p>
+        </ExpandableCard>
+      </motion.div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.6 }}
-        className="mt-20 flex justify-center"
+        className="mt-16 flex justify-center"
       >
         <a
           href="#scripting"

@@ -8,7 +8,9 @@ type VideoEmbedProps = {
   posterAlt: string;
   title: string;
   // Altezza fissa del poster (prima del click) per il variant "wide" (es. il
-  // documentario), per evitare che uno screenshot molto alto domini la card.
+  // documentario): stessa altezza usata anche dopo il click, per evitare che
+  // il formato della card cambi (e con esso il layout sotto) al passaggio
+  // da anteprima a video.
   mediaHeightClassName?: string;
   // "reel" mostra il contenuto nel suo formato verticale nativo (da
   // telefono), centrato e non stirato — pensato per i Reel Instagram, che
@@ -43,21 +45,32 @@ export default function VideoEmbed(props: VideoEmbedProps) {
   const isReel = props.variant === 'reel';
   const hasLocalVideo = props.kind === 'instagram' && Boolean(props.localVideo);
 
+  // Stessa classe di formato per anteprima e video caricato, altrimenti la
+  // card cambia altezza al click (e sposta tutto quello che viene dopo).
+  // Per i Reel coincide con l'aspect ratio reale della registrazione dello
+  // schermo (1080x1950), non un 3:5 generico: così non serve nemmeno
+  // tagliare verticalmente le scritte in basso al video.
+  const mediaSizeClassName = isReel
+    ? hasLocalVideo
+      ? 'aspect-[1080/1950]'
+      : 'aspect-[3/5]'
+    : (props.mediaHeightClassName ?? 'aspect-[4/5]');
+
   const containerClassName = `overflow-hidden rounded-2xl border border-glass-border bg-glass ${
-    isReel ? 'aspect-[3/5] w-full' : 'aspect-video w-full bg-black'
-  }`;
+    isReel ? 'w-full' : 'w-full bg-black'
+  } ${mediaSizeClassName}`;
 
   let media: ReactNode;
 
   if (loaded && hasLocalVideo && props.kind === 'instagram') {
     media = (
-      // Aspect ratio della registrazione dello schermo (1080x1950), non il
-      // 3:5 generico della card: coincide col fotogramma reale, così le
-      // scritte in basso al Reel non vengono tagliate da un crop verticale.
-      <div className="aspect-[1080/1950] w-full overflow-hidden rounded-2xl border border-glass-border bg-glass">
+      <div className={containerClassName}>
         <video
           src={withBasePath(props.localVideo!)}
           controls
+          controlsList="nodownload noremoteplayback"
+          disablePictureInPicture
+          disableRemotePlayback
           autoPlay
           playsInline
           className="h-full w-full object-cover"
@@ -91,11 +104,8 @@ export default function VideoEmbed(props: VideoEmbedProps) {
           src={withBasePath(props.poster)}
           alt={props.posterAlt}
           loading="lazy"
-          className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-            isReel ? 'aspect-[3/5]' : (props.mediaHeightClassName ?? 'aspect-[4/5]')
-          }`}
+          className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${mediaSizeClassName}`}
         />
-        <span className="absolute inset-0 bg-gradient-to-t from-abyss-950/85 via-abyss-950/10 to-transparent transition-opacity group-hover:from-abyss-950/70" />
         <span className="absolute inset-0 flex items-center justify-center">
           <span className="relative flex h-16 w-16 items-center justify-center">
             <span className="absolute inset-0 animate-pulse-ring rounded-full bg-cyan/40" />
@@ -104,22 +114,12 @@ export default function VideoEmbed(props: VideoEmbedProps) {
             </span>
           </span>
         </span>
-        {!hasLocalVideo && (
-          <span className="absolute right-3 top-3 rounded-full border border-glass-border bg-abyss-900/80 px-3 py-1 font-mono text-[11px] text-cyan-soft backdrop-blur-sm">
-            {props.kind === 'instagram' ? 'Guarda il Reel su Instagram' : 'Guarda il video'}
-          </span>
-        )}
       </button>
     );
   }
 
-  if (props.kind !== 'instagram') {
-    return media;
-  }
-
-  return (
-    <div className={isReel ? 'mx-auto w-full max-w-[320px] sm:max-w-[360px]' : 'w-full'}>
-      {media}
+  const caption =
+    props.kind === 'instagram' ? (
       <a
         href={props.permalink}
         target="_blank"
@@ -129,6 +129,14 @@ export default function VideoEmbed(props: VideoEmbedProps) {
         Guarda il Reel su Instagram
         <span aria-hidden="true">↗</span>
       </a>
+    ) : (
+      <p className="mt-3 font-mono text-xs text-cyan-soft">Guarda il video</p>
+    );
+
+  return (
+    <div className={isReel ? 'mx-auto w-full max-w-[320px] sm:max-w-[360px]' : 'w-full'}>
+      {media}
+      {caption}
     </div>
   );
 }

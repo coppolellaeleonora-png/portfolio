@@ -11,10 +11,10 @@ import Lightbox from './Lightbox';
 const DOC_MEDIA_HEIGHT = 'h-[320px] sm:h-[400px] lg:h-[440px]';
 
 export default function MediaSection() {
-  const [selected, setSelected] = useState<{ src: string; alt: string } | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   return (
-    <section id="media" className="scroll-mt-20 px-4 pb-24 pt-8 sm:px-8">
+    <section id="media" className="scroll-mt-20 px-4 pb-24 pt-2 sm:px-8">
       <div className="mx-auto max-w-content">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -48,11 +48,11 @@ export default function MediaSection() {
             Stories interattive
           </p>
           <div className="flex gap-4 overflow-x-auto pb-2">
-            {socialContentSamples.map((sample) => (
+            {socialContentSamples.map((sample, i) => (
               <button
                 key={sample.src}
                 type="button"
-                onClick={() => setSelected(sample)}
+                onClick={() => setSelectedIndex(i)}
                 className="group flex-none overflow-hidden rounded-xl border border-glass-border focus-visible:outline-offset-4"
                 aria-label={`Apri in grande: ${sample.alt}`}
               >
@@ -66,7 +66,12 @@ export default function MediaSection() {
             ))}
           </div>
         </div>
-        <Lightbox photo={selected} onClose={() => setSelected(null)} />
+        <Lightbox
+          photos={socialContentSamples}
+          index={selectedIndex}
+          onClose={() => setSelectedIndex(null)}
+          onNavigate={setSelectedIndex}
+        />
 
         {/* Documentario */}
         <div className="mt-16 grid grid-cols-1 gap-8 rounded-3xl border border-glass-border bg-gradient-to-br from-glass to-white/[0.02] p-6 backdrop-blur-sm sm:p-8 lg:grid-cols-2 lg:items-center">

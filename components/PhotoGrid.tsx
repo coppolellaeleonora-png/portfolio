@@ -8,7 +8,7 @@ import Lightbox from './Lightbox';
 type Photo = { src: string; alt: string };
 
 export default function PhotoGrid({ photos }: { photos: Photo[] }) {
-  const [selected, setSelected] = useState<Photo | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   return (
     <>
@@ -17,7 +17,7 @@ export default function PhotoGrid({ photos }: { photos: Photo[] }) {
           <motion.button
             key={photo.src}
             type="button"
-            onClick={() => setSelected(photo)}
+            onClick={() => setSelectedIndex(i)}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
@@ -35,7 +35,12 @@ export default function PhotoGrid({ photos }: { photos: Photo[] }) {
           </motion.button>
         ))}
       </div>
-      <Lightbox photo={selected} onClose={() => setSelected(null)} />
+      <Lightbox
+        photos={photos}
+        index={selectedIndex}
+        onClose={() => setSelectedIndex(null)}
+        onNavigate={setSelectedIndex}
+      />
     </>
   );
 }
