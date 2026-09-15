@@ -9,7 +9,7 @@ import RichText from './RichText';
 export default function Hero() {
   return (
     <section id="intro" className="scroll-mt-20 px-4 pb-24 pt-2 sm:px-8 sm:pt-4">
-      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-8">
+      <div className="mx-auto grid max-w-content grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_1fr] lg:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

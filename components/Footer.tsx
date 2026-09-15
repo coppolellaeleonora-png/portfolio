@@ -2,7 +2,7 @@ import { contact, hero } from '@/lib/content';
 
 export default function Footer() {
   return (
-    <footer id="contatti" className="scroll-mt-20 px-4 py-24 sm:px-8">
+    <footer id="contatti" className="scroll-mt-20 px-4 pb-24 pt-8 sm:px-8">
       <div className="relative mx-auto max-w-content overflow-hidden rounded-[2rem] border border-glass-border bg-gradient-to-br from-glass to-white/[0.03] p-10 text-center backdrop-blur-sm sm:p-16">
         <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan/20 blur-[100px]" />
         <p className="relative font-mono text-xs uppercase tracking-[0.2em] text-cyan-soft">

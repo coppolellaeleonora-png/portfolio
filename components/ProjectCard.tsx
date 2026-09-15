@@ -28,7 +28,7 @@ export default function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.5 }}
-      className="group relative grid grid-cols-1 gap-8 rounded-3xl border border-glass-border bg-gradient-to-br from-glass to-white/[0.02] p-6 backdrop-blur-sm transition-colors hover:border-cyan/30 hover:from-glass-hover sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-12"
+      className="relative grid grid-cols-1 gap-8 rounded-3xl border border-glass-border bg-gradient-to-br from-glass to-white/[0.02] p-6 backdrop-blur-sm transition-colors hover:border-cyan/30 hover:from-glass-hover sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-12"
     >
       <span className="pointer-events-none absolute right-6 top-6 font-mono text-xs text-ink-faint sm:right-8 sm:top-8">
         {String(index + 1).padStart(2, '0')}

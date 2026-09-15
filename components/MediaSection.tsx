@@ -14,7 +14,7 @@ export default function MediaSection() {
   const [selected, setSelected] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-    <section id="media" className="scroll-mt-20 px-4 py-24 sm:px-8">
+    <section id="media" className="scroll-mt-20 px-4 pb-24 pt-8 sm:px-8">
       <div className="mx-auto max-w-content">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

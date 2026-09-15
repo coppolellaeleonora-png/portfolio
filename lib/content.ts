@@ -116,6 +116,7 @@ export const scriptingProjects: ScriptingProject[] = [
     attribution: 'Per TartAmare',
     title: 'Rubrica di bioacustica "Il linguaggio del mare"',
     role: 'Ruolo: curatela dei testi scientifici e adattamento del linguaggio per Instagram, per l\'associazione TartAmare. Veste grafica a cura del social media manager dell\'associazione.',
+    instagramLink: 'https://www.instagram.com/p/C14xrjGo8Do/',
     media: {
       kind: 'image',
       src: '/images/projects/rubrica-slide-1.webp',
